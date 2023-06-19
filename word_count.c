@@ -1,34 +1,53 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
 
 #define BUFFER_SIZE 512
+#define IN_STATE 1
+#define OUT_STATE 0
 
-
-int gline(char *array, int max)
+int get_line(char *array, int max)
 {
-    int cn=0,i=0;
+    
+    int  i = 0 ;
     char c;
-    while ((c = getchar())!= EOF)
+    while((c = getchar()) != EOF)
     {
+       
         array[i]=c;
         i++;
-    if(c=='\n')
-        break;
-        if(i >= max)
-              break;
-     }
-     return i;
-   
-}
         
-              
-   
-   
-
-
-int main()
-{
-      char  ip_buffer[BUFFER_SIZE];
-      int a =gline(ip_buffer, BUFFER_SIZE);
-      printf("%d",a);
+        
+    if(c == '\n')
+        break;
+    if(i >= max)
+        break; 
+        
+    }
+    array[i] = '\0';
+    return i;
 }
+
+        
+  
+          
+          
+int write_line(char *array)
+{
+   int cw = 0, cl = 0, status;
+   status=OUT_STATE;
+   char c;
+   
+   if(c == '\n')
+   {
+        cl++;
+   }    
+        
+           
+    if(c == '\t' || c == ' ' || c == '\n')
+    {
+        status = OUT_STATE;
+    } 
+       
+    else if(OUT_STATE == 0)
+    {
+       status = IN_STATE;
+       cw++; 
